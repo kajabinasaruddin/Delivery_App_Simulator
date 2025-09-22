@@ -22,7 +22,6 @@ public class OrderService {
         this.itemRepo = itemRepo;
     }
 
-    // ===================== Place a new order =====================
     public Order placeOrder(Order order) {
         double totalPrice = 0.0;
 
@@ -53,21 +52,21 @@ public class OrderService {
         return orderRepo.save(order);
     }
 
-    // ===================== Update an existing order =====================
+
     public Order updateOrder(String id, Order updated) {
-        // Fetch existing order
+       
         Optional<Order> existingOpt = orderRepo.findById(id);
         if (!existingOpt.isPresent()) {
             throw new RuntimeException("Order not found: " + id);
         }
         Order existing = existingOpt.get();
 
-        // Update address
+       
         if (updated.getAddress() != null) {
             existing.setAddress(updated.getAddress());
         }
 
-        // Update itemIds and recalculate price
+        
         if (updated.getItemIds() != null && !updated.getItemIds().isEmpty()) {
             existing.setItemIds(updated.getItemIds());
             double totalPrice = 0.0;
@@ -92,17 +91,14 @@ public class OrderService {
         return orderRepo.save(existing);
     }
 
-    // ===================== Cancel an order =====================
     public void cancelOrder(String id) {
         orderRepo.deleteById(id);
     }
-
-    // ===================== Get all orders (or filter by ID) =====================
+    
     public List<Order> getOrder(String id) {
         return orderRepo.findAll();
     }
 
-    // ===================== Get order history by customer ID =====================
     public List<Order> getHistory(String customerId) {
         return orderRepo.findByCustomerId(customerId);
     }

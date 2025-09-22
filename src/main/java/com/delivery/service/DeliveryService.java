@@ -7,7 +7,6 @@ import org.springframework.stereotype.Service;
 import com.delivery.entity.Delivery;
 import com.delivery.repository.DeliveryRepository;
 
-
 @Service
 public class DeliveryService {
     private final DeliveryRepository deliveryRepo;

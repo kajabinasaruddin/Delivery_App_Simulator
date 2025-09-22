@@ -7,8 +7,6 @@ import org.springframework.stereotype.Service;
 import com.delivery.entity.Item;
 import com.delivery.repository.ItemRepository;
 
-
-
 @Service
 public class ItemService {
     private final ItemRepository itemRepo;
@@ -26,12 +24,12 @@ public class ItemService {
     }
 
     public Item updateItem(String id, Item updated) {
-   
-        		if(itemRepo.findById(id) != null) {
-        			System.out.println("Item found");
-        		}else {
-        			System.out.println("Item not found::");
-        		}
-        return itemRepo.save(updated);
-    }
+		if(itemRepo.findById(id) != null) {
+			System.out.println("Item found");
+		}else {
+			System.out.println("Item not found::");
+		}
+		return itemRepo.save(updated);
+}
+
 }
