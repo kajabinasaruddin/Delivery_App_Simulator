@@ -1,6 +1,8 @@
 package com.delivery.controller;
 import java.util.List;
 import java.util.Map;
+import java.util.Optional;
+
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.DeleteMapping;
 import org.springframework.web.bind.annotation.GetMapping;
@@ -12,6 +14,7 @@ import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RestController;
 import com.delivery.entity.Order;
 import com.delivery.service.OrderService;
+
 @RestController
 @RequestMapping("/orders")
 public class OrderController {
@@ -20,13 +23,15 @@ public class OrderController {
     public OrderController(OrderService orderService) {
         this.orderService = orderService;
     }
-    @PostMapping("/add")
+    @PostMapping
     public ResponseEntity<Object> placeOrder(@RequestBody Order order) {
         Order saved = orderService.placeOrder(order);
         return ResponseEntity.ok(Map.of("message", "Order placed successfully", "data", saved));
     }
+    
+
     @GetMapping("/{id}")
-    public List<Order> getOrder(@PathVariable String id) {
+    public Optional<Order> getOrder(@PathVariable String id) {
         return orderService.getOrder(id);
     }
 

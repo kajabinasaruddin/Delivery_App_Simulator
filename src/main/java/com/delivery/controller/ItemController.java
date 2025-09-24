@@ -1,8 +1,6 @@
 package com.delivery.controller;
 
 import java.util.List;
-import java.util.Map;
-import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.PostMapping;
@@ -25,15 +23,22 @@ public class ItemController {
     public List<Item> getItems() {
         return itemService.getAllItems();
     }
+    
     @PostMapping("/add")
-    public ResponseEntity<Object> addItem(@RequestBody Item item) {
+    public String addItem(@RequestBody Item item) {
         Item saved = itemService.addItem(item);
-        return ResponseEntity.ok(Map.of("message", "Item added successfully", "data", saved));
+        return "Item added successfully: " + saved.getId();
+    }
+    @PutMapping("/{id}")
+    public String updateItem(@PathVariable String id, @RequestBody Item item) {
+        Item updated = itemService.updateItem(id, item);
+
+        if (updated != null) {
+            return "Item updated successfully"; 
+        } else {
+            return "Item not found with ID: " + id;
+        }
     }
 
-    @PutMapping("/{id}")
-    public ResponseEntity<Object> updateItem(@PathVariable String id, @RequestBody Item item) {
-        Item updated = itemService.updateItem(id, item);
-        return ResponseEntity.ok(Map.of("message", "Item updated successfully", "data", updated));
-    }
+
 }

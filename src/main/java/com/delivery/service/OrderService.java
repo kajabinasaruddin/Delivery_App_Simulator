@@ -1,9 +1,7 @@
 package com.delivery.service;
-
 import java.time.LocalDateTime;
 import java.util.List;
 import java.util.Optional;
-
 import org.springframework.stereotype.Service;
 
 import com.delivery.entity.Item;
@@ -15,7 +13,7 @@ import com.delivery.repository.OrderRepository;
 public class OrderService {
 
     private final OrderRepository orderRepo;
-    private final ItemRepository itemRepo;
+    private final ItemRepository itemRepo;	
 
     public OrderService(OrderRepository orderRepo, ItemRepository itemRepo) {
         this.orderRepo = orderRepo;
@@ -32,16 +30,16 @@ public class OrderService {
                 if (itemOpt.isPresent()) {
                     Item item = itemOpt.get();
                     if (item.getPrice() != null) {
-                        totalPrice += item.getPrice();
+                        totalPrice += item.getPrice()*item.getQuantity();
                     } else {
-                        System.out.println("⚠ Item price is null for: " + itemId);
+                        System.out.println("Item price is null for: " + itemId);
                     }
                 } else {
-                    System.out.println("⚠ Item not found: " + itemId);
+                    System.out.println("Item not found: " + itemId);
                 }
             }
         } else {
-            System.out.println("⚠ No item IDs provided!");
+            System.out.println("No item IDs provided!");
         }
 
         order.setPrice(totalPrice);
@@ -65,8 +63,7 @@ public class OrderService {
         if (updated.getAddress() != null) {
             existing.setAddress(updated.getAddress());
         }
-
-        
+       
         if (updated.getItemIds() != null && !updated.getItemIds().isEmpty()) {
             existing.setItemIds(updated.getItemIds());
             double totalPrice = 0.0;
@@ -95,8 +92,8 @@ public class OrderService {
         orderRepo.deleteById(id);
     }
     
-    public List<Order> getOrder(String id) {
-        return orderRepo.findAll();
+    public Optional<Order> getOrder(String id) {
+        return orderRepo.findById(id);
     }
 
     public List<Order> getHistory(String customerId) {

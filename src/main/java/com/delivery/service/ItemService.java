@@ -1,6 +1,7 @@
 package com.delivery.service;
 
 import java.util.List;
+import java.util.Optional;
 
 import org.springframework.stereotype.Service;
 
@@ -24,12 +25,18 @@ public class ItemService {
     }
 
     public Item updateItem(String id, Item updated) {
-		if(itemRepo.findById(id) != null) {
-			System.out.println("Item found");
-		}else {
-			System.out.println("Item not found::");
-		}
-		return itemRepo.save(updated);
+    		Optional<Item> optionalItem = itemRepo.findById(id);
+
+        if (optionalItem.isPresent()) {
+            Item existing = optionalItem.get();
+            existing.setName(updated.getName());
+            existing.setPrice(updated.getPrice());
+            existing.setQuantity(updated.getQuantity());
+            return itemRepo.save(existing); // only updates existing
+        } else {
+            System.out.println("Item not found");
+            return null; 
+        }
 }
 
 }

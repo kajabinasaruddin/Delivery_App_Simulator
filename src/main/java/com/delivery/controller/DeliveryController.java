@@ -11,6 +11,7 @@ import org.springframework.web.bind.annotation.RestController;
 import com.delivery.entity.Delivery;
 import com.delivery.service.DeliveryService;
 
+
 @RestController
 @RequestMapping("/delivery")
 public class DeliveryController {
@@ -19,7 +20,7 @@ public class DeliveryController {
     public DeliveryController(DeliveryService deliveryService) {
         this.deliveryService = deliveryService;
     }
-
+    
     @GetMapping("/{orderId}/status")
     public ResponseEntity<Object> getStatus(@PathVariable String orderId) {
         Delivery deliver = deliveryService.getStatus(orderId);
@@ -63,7 +64,6 @@ public class DeliveryController {
         return ResponseEntity.ok(Map.of("message", "Order cancelled successfully", "data", updated));
     }
 
-
     @PutMapping("/{orderId}/update")
     public ResponseEntity<Object> updateStatus(@PathVariable String orderId,
                                                @RequestBody Delivery request) {
@@ -73,5 +73,4 @@ public class DeliveryController {
             "data", updated
         ));
     }
-
 }
