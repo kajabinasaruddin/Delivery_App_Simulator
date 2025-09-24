@@ -1,10 +1,7 @@
 package com.delivery.entity;
 import java.time.LocalDateTime;
-
 import org.springframework.data.annotation.Id;
 import org.springframework.data.mongodb.core.mapping.Document;
-
-
 
 
 @Document(collection = "deliveries")
@@ -19,11 +16,10 @@ public class Delivery {
     private LocalDateTime updatedAt = LocalDateTime.now();
     
     public Delivery() {
-		// TODO Auto-generated constructor stub
+	
 	}
-    
 	public Delivery(String id, String orderId, String status, LocalDateTime createdAt, LocalDateTime updatedAt) {
-		super();
+		//super();
 		this.id = id;
 		this.orderId = orderId;
 		this.status = status;
@@ -37,10 +33,10 @@ public class Delivery {
 		this.id = id;
 	}
 	public String getOrderId() {
-		return orderId;
+		return orderId; 
 	}
-	public void setOrderId(String orderId) {
-		this.orderId = orderId;
+	public void setOrderId(String orderId) {  
+		this.orderId = orderId;  
 	}
 	public String getStatus() {
 		return status;
@@ -60,6 +56,5 @@ public class Delivery {
 	public void setUpdatedAt(LocalDateTime updatedAt) {
 		this.updatedAt = updatedAt;
 	}
-    
-    
+
 }
