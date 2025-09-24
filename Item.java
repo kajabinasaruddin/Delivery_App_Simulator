@@ -1,8 +1,6 @@
 package com.delivery.entity;
-
 import org.springframework.data.annotation.Id;
 import org.springframework.data.mongodb.core.mapping.Document;
-
 
 
 
@@ -13,16 +11,19 @@ public class Item {
 
     private String name;
     private Double price;
+    private Integer quantity = 1;
     
     public Item() {
-		// TODO Auto-generated constructor stub
+		
 	}
-	public Item(String id, String name, Double price) {
-		super();
+	public Item(String id, String name, Double price, Integer quantity) {
+		//super();
 		this.id = id;
 		this.name = name;
 		this.price = price;
+		this.quantity = quantity;
 	}
+
 	public String getId() {
 		return id;
 	}
@@ -40,6 +41,14 @@ public class Item {
 	}
 	public void setPrice(Double price) {
 		this.price = price;
+	}
+
+	public Integer getQuantity() {
+		return quantity;
+	}
+
+	public void setQuantity(Integer quantity) {
+		this.quantity = quantity;
 	}
     
 }
