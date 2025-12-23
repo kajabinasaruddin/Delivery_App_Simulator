@@ -1,0 +1,108 @@
+Delivery_App_Simulators/
+│── src/main/java/com/delivery/
+│   │── DeliveryAppSimulatorsApplication.java
+│   │
+│   ├── controller/
+│   │   ├── DeliveryController.java
+│   │   ├── ItemController.java
+│   │   └── OrderController.java
+│   │
+│   ├── entity/
+│   │   ├── Delivery.java
+│   │   ├── Item.java
+│   │   └── Order.java
+│   │
+│   ├── repository/
+│   │   ├── DeliveryRepository.java
+│   │   ├── ItemRepository.java
+│   │   └── OrderRepository.java
+│   │
+│   ├── service/
+│   │   ├── DeliveryService.java
+│   │   ├── ItemService.java
+│   │   └── OrderService.java
+|
+│── src/main/resources/
+│   ├── application.properties
+│
+│── pom.xml
+
+
+
+Project seminar::
+
+Today I am going to present a project called Delivery App Simulator. This is a Spring Boot application that allows customers to place and track delivery orders."
+
+The purpose of the app
+---------------------
+What problem it solves:
+"It helps customers place orders, track deliveries, and view order history without needing a real delivery system."
+
+
+
+Based on these end Points, we divide our application into three main classes Order,delivery and items
+
+for each class, we follow 4 layers: that is entity layer, service layer ,repository layer,controller layer
+
+-->in entity layer stores the details like order info ,item data, and delivery status
+
+-->in repository layer it is communicate with database to save ,update, fetch or delete the data
+-->in service layer we will write the business logic, such as calculating the totals, update delivering the status,or managing orders
+-->in controller layer we will send the request to the postman
+
+Item.java
+----------
+- this is the item class.it is linked to the items collection in MongoDb using @Document
+- the ID is a unique identifier,and other fields like name,price,quantity describe them 
+- we use constructors and getter/setters to handle the data
+
+ItemRepository.java
+-------------------
+the ItemRepository is used to connect the ItemEntity with mongodb and it is used to handle the Mongodb operations for items
+
+ItemService.java
+----------------
+In itemService we are injecting the ItemRepository and we can add items,update the items and fetch the items
+
+ItemController.java
+-------------------
+in ItemController we are injecting the ItemService and we can handle http requests to add the items ,update the items and fetch the all items
+
+Order.java
+----------
+-this is the order class.it is link to the orders collection in Mongodb using @Document
+- the ID is a unique identifier , and other fields like costumer id, address,price ,status and testamps
+-it is also stores itemIds,which connect order with the items
+- we use constructors and getter/setter to handle the data
+
+OrderRepository.java
+--------------------
+the orderRepository is used to connect with the OrderEntity with Mongodb and it is used to handle the MongoDb operations of orders
+
+OrderService.java
+-----------------
+In orderService we are injecting the OrderRepository,ItemRepository and we can place the order,cancel the order,update the order and fetch the specific order
+
+OrderController.java
+--------------------
+In OrderController we are injecting the OrderService and we can handle the http requests to place the order ,update the order,cancelthe rder,and fetch the specific order for a user
+
+Deliver.java
+------------
+- this is the delivery class ,it is link to the delivery collection in Mongodb using @Document
+- the ID is a unique identifier,and the orderId is link to an Order
+- the status shows if the delivery is pending, in transit, or delivered.
+
+DeliveryRepository
+------------------
+the deliveryRepository is used to connect the DeliveryRepository with DeliveryEntity with Mongodb and it is used to handle the Mongodb Operations for Deliveries
+
+DeliveryService.java
+--------------------
+in deliveryService we are injecting the DeliveryRepository and we can fetch the delivery status and update the delivery status for a specific order
+
+
+DeliveryController.java
+-----------------------
+in DeliveryController we are injecting DeliveryService and we can handle the http requests to fetch the delivery status,update the delivery status,and cancel the delivery status for specific order
+
